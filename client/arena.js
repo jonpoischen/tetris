@@ -1,7 +1,6 @@
 class Arena
 {
-    constructor(w, h)
-    {
+    constructor(w, h) {
         const matrix = [];
         while (h--) {
             matrix.push(new Array(w).fill(0));
@@ -11,14 +10,12 @@ class Arena
         this.events = new Events;
     }
 
-    clear()
-    {
+    clear() {
         this.matrix.forEach(row => row.fill(0));
         this.events.emit('matrix', this.matrix);
     }
 
-    collide(player)
-    {
+    collide(player) {
         const [m, o] = [player.matrix, player.pos];
         for (let y = 0; y < m.length; ++y) {
             for (let x = 0; x < m[y].length; ++x) {
@@ -32,8 +29,7 @@ class Arena
         return false;
     }
 
-    merge(player)
-    {
+    merge(player) {
         player.matrix.forEach((row, y) => {
             row.forEach((value, x) => {
                 if (value !== 0) {
@@ -44,8 +40,7 @@ class Arena
         this.events.emit('matrix', this.matrix);
     }
 
-    sweep()
-    {
+    sweep() {
         let rowCount = 1;
         let score = 0;
         outer: for (let y = this.matrix.length - 1; y > 0; --y) {

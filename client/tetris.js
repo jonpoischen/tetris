@@ -1,4 +1,5 @@
-class Tetris {
+class Tetris
+{
     constructor(element) {
         this.element = element;
         this.canvas = element.querySelector('canvas');
