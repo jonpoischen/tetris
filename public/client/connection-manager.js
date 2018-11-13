@@ -11,7 +11,6 @@ class ConnectionManager
     connect(address) {
         this.conn = io.connect(address);
         this.conn.on('open', () => {
-            console.log("this.conn.on open");
             this.initSession();
             this.watchEvents();
         });
@@ -23,7 +22,6 @@ class ConnectionManager
     }
 
     initSession() {
-        console.log("initSession called");
         const sessionId = window.location.hash.split('#')[1];
         const state = this.localTetris.serialize();
         if (sessionId) {

@@ -1,5 +1,5 @@
-const Session = require('./session');
-const Client = require('./client');
+const Session = require('./server/session.js');
+const Client = require('./server/client.js');
 
 const express = require('express');
 const app = express();
@@ -54,6 +54,10 @@ function broadcastSession(session) {
     });
 }
 
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + 'index.html');
+});
+
 server.listen(8080, function() {
     console.log("I'm listening.");
 });
@@ -68,7 +72,6 @@ io.on('connection', function(conn) {
         const data = JSON.parse(msg);
 
         if (data.type === 'create-session') {
-            console.log("create-session");
             const session = createSession();
             session.join(client);
 
@@ -78,14 +81,12 @@ io.on('connection', function(conn) {
                 id: session.id,
             });
         } else if (data.type === 'join-session') {
-            console.log("join-session");
             const session = getSession(data.id) || createSession(data.id);
             session.join(client);
 
             client.state = data.state;
             broadcastSession(session);
         } else if (data.type === 'state-update') {
-            // console.log("state-update");
             const [key, value] = data.state;
             client.state[data.fragment][key] = value;
             client.broadcast(data);
@@ -93,7 +94,6 @@ io.on('connection', function(conn) {
     });
 
     conn.on('disconnect', () => {
-        console.log("close session");
         const session = client.session;
         if (session) {
             session.leave(client);
