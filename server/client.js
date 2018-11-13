@@ -19,7 +19,7 @@ class Client
 
     broadcast(data) {
         if (!this.session) {
-            throw new Error('Can not broadcast without session');
+            console.log('Can not broadcast without session');
         }
 
         data.clientId = this.id;

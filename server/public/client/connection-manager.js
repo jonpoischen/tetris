@@ -9,19 +9,21 @@ class ConnectionManager
     }
 
     connect(address) {
-        this.conn = new WebSocket(address);
-
-        this.conn.addEventListener('open', () => {
+        this.conn = io.connect(address);
+        this.conn.on('open', () => {
+            console.log("this.conn.on open");
             this.initSession();
             this.watchEvents();
         });
 
-        this.conn.addEventListener('message', event => {
-            this.receive(event.data);
+        this.conn.on('message', event => {
+            event = JSON.parse(event);
+            this.receive(event);
         });
     }
 
     initSession() {
+        console.log("initSession called");
         const sessionId = window.location.hash.split('#')[1];
         const state = this.localTetris.serialize();
         if (sessionId) {
@@ -103,7 +105,7 @@ class ConnectionManager
     }
 
     receive(msg) {
-        const data = JSON.parse(msg);
+        const data = msg;
         if (data.type === 'session-created') {
             window.location.hash = data.id;
         } else if (data.type === 'session-broadcast') {
