@@ -55,7 +55,7 @@ function broadcastSession(session) {
 }
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + 'index.html');
+    res.sendFile(__dirname + '/views/index.html');
 });
 
 server.listen(8080, function() {
