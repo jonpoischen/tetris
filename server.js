@@ -4,7 +4,7 @@ const Client = require('./client.js');
 const express = require('express');
 const app = express();
 const server = require('http').Server(app);
-const io = require('socket.io')(server, { origins: 'localhost:8080' });
+const io = require('socket.io')(server, { origins: 'jonpoischen-tetris.glitch.me:*' });
 
 app.use(express.static(__dirname + '/public'));
 
@@ -62,15 +62,12 @@ const listener = server.listen(process.env.PORT || 8080, function() {
   console.log('Your app is listening on port ' + listener.address().port);
 });
 
-// server.listen(8080, function() {
-//     console.log("I'm listening.");
-// });
-
 io.on('connection', function(conn) {
     conn.emit('open');
 
     console.log("io connected");
     const client = createClient(conn);
+    console.log("client info: ", client);
 
     conn.on('message', msg => {
         const data = JSON.parse(msg);

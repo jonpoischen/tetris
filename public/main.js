@@ -4,7 +4,7 @@ localTetris.element.classList.add('local');
 localTetris.run();
 
 const connectionManager = new ConnectionManager(tetrisManager);
-connectionManager.connect('localhost:8080');
+connectionManager.connect();
 
 const keyListener = (event) => {
     [
