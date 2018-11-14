@@ -1,0 +1,25 @@
+{
+  "name": "Multiplayer Tetris",
+  "version": "1.0.0",
+  "description": "Multiplayer Tetris using Socket.io (based on Meth Meth Method's tutorial on YouTube)",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonpoischen/tetris.git"
+  },
+  "author": "Jonathan Poischen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jonpoischen/tetris/issues"
+  },
+  "homepage": "https://github.com/jonpoischen/tetris#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "http": "0.0.0",
+    "socket.io": "^2.1.1"
+  }
+}
