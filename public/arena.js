@@ -10,7 +10,6 @@ class Arena
         this.events = new Events;
     }
 
-    // this is "Game Over"
     clear() {
         this.matrix.forEach(row => row.fill(0));
         this.events.emit('matrix', this.matrix);
@@ -42,7 +41,6 @@ class Arena
     }
 
     sweep() {
-        ////////////////////////
         var shakingElements = [];
         var shake = function (element, magnitude = 16, angular = false) {
             var tiltAngle = 1;
@@ -109,7 +107,7 @@ class Arena
             }
 
             const row = this.matrix.splice(y, 1)[0].fill(0);
-            shake(document.querySelector('.tetris'));
+            shake(document.querySelector('.player.local canvas'));
             this.matrix.unshift(row);
             ++y;
 

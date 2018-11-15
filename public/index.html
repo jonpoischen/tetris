@@ -19,6 +19,10 @@
             border-color: #fff;
         }
 
+        .player.local div.player-name:after {
+            content: "You";
+        }
+
         canvas {
             border: solid .2em #707070;
             height: 90vh;
@@ -30,6 +34,7 @@
         <div class="player">
             <div class="score"></div>
             <canvas class="tetris" width="240" height="400"></canvas>
+          <div class="player-name"></div>
         </div>
     </template>
 
