@@ -7,6 +7,8 @@ const connectionManager = new ConnectionManager(tetrisManager);
 connectionManager.connect();
 
 const keyListener = (event) => {
+    event.preventDefault();
+
     [
         [37, 39, 32, 38, 40],
         [65, 68, 32, 87, 83],
