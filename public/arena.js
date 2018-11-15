@@ -10,6 +10,7 @@ class Arena
         this.events = new Events;
     }
 
+    // this is "Game Over"
     clear() {
         this.matrix.forEach(row => row.fill(0));
         this.events.emit('matrix', this.matrix);
@@ -41,6 +42,63 @@ class Arena
     }
 
     sweep() {
+        ////////////////////////
+        var shakingElements = [];
+        var shake = function (element, magnitude = 16, angular = false) {
+            var tiltAngle = 1;
+            var counter = 1;
+            var numberOfShakes = 15;
+            var startX = 0,
+                startY = 0,
+                startAngle = 0;
+            var magnitudeUnit = magnitude / numberOfShakes;
+            var randomInt = (min, max) => {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            };
+
+            if(shakingElements.indexOf(element) === -1) {
+                shakingElements.push(element);
+                if(angular) {
+                    angularShake();
+                } else {
+                    upAndDownShake();
+                }
+            }
+
+            function upAndDownShake() {
+                if (counter < numberOfShakes) {
+                    element.style.transform = 'translate(' + startX + 'px, ' + startY + 'px)';
+                    magnitude -= magnitudeUnit;
+                    var randomX = randomInt(-magnitude, magnitude);
+                    var randomY = randomInt(-magnitude, magnitude);
+                    element.style.transform = 'translate(' + randomX + 'px, ' + randomY + 'px)';
+                    counter += 1;
+                    requestAnimationFrame(upAndDownShake);
+                }
+
+                if (counter >= numberOfShakes) {
+                    element.style.transform = 'translate(' + startX + ', ' + startY + ')';
+                    shakingElements.splice(shakingElements.indexOf(element), 1);
+                }
+            }
+
+            function angularShake() {
+                if (counter < numberOfShakes) {
+                    element.style.transform = 'rotate(' + startAngle + 'deg)';
+                    magnitude -= magnitudeUnit;
+                    var angle = Number(magnitude * tiltAngle).toFixed(2);
+                    element.style.transform = 'rotate(' + angle + 'deg)';
+                    counter += 1;
+                    tiltAngle *= -1;
+                    requestAnimationFrame(angularShake);
+                }
+
+                if (counter >= numberOfShakes) {
+                    element.style.transform = 'rotate(' + startAngle + 'deg)';
+                    shakingElements.splice(shakingElements.indexOf(element), 1);
+                }
+            }
+        };
         let rowCount = 1;
         let score = 0;
         outer: for (let y = this.matrix.length - 1; y > 0; --y) {
@@ -51,6 +109,7 @@ class Arena
             }
 
             const row = this.matrix.splice(y, 1)[0].fill(0);
+            shake(document.querySelector('.tetris'));
             this.matrix.unshift(row);
             ++y;
 

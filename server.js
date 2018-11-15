@@ -67,7 +67,6 @@ io.on('connection', function(conn) {
 
     console.log("io connected");
     const client = createClient(conn);
-    console.log("client info: ", client);
 
     conn.on('message', msg => {
         const data = JSON.parse(msg);
