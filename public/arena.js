@@ -41,6 +41,8 @@ class Arena
     }
 
     sweep() {
+        var audio2 = new Audio('drop.mp3');
+        audio2.play();
         var shakingElements = [];
         var shake = function (element, magnitude = 16, angular = false) {
             var tiltAngle = 1;
@@ -97,6 +99,7 @@ class Arena
                 }
             }
         };
+
         let rowCount = 1;
         let score = 0;
         outer: for (let y = this.matrix.length - 1; y > 0; --y) {
@@ -108,6 +111,8 @@ class Arena
 
             const row = this.matrix.splice(y, 1)[0].fill(0);
             shake(document.querySelector('.player.local canvas'));
+            var audio = new Audio('break.mp3');
+            audio.play();
             this.matrix.unshift(row);
             ++y;
 

@@ -116,6 +116,8 @@ class Player
                 return;
             }
         }
+        var audio = new Audio('swoosh.mp3');
+        audio.play();
         this.events.emit('matrix', this.matrix);
     }
 

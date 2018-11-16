@@ -8,6 +8,9 @@ class TetrisManager
     }
 
     createPlayer() {
+        var audio = new Audio('join.mp3');
+        audio.play();
+
         const element = document
             .importNode(this.template.content, true)
             .children[0];
