@@ -26,7 +26,7 @@ class Player
             this.dropInterval -= 200;
             this.DROP_SLOW -= 200;
             var music = document.getElementById("music");
-            music.playbackRate += 0.2;
+            music.playbackRate += 0.1;
         }
     }
 
