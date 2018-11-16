@@ -11,6 +11,12 @@ class Arena
     }
 
     clear() {
+        const player = localTetris.player;
+        player.dropInterval  = 1100;
+        player.DROP_SLOW  = 1100;
+        var music = document.getElementById("music");
+        music.playbackRate = 1;
+
         this.matrix.forEach(row => row.fill(0));
         this.events.emit('matrix', this.matrix);
     }

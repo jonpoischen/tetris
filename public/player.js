@@ -1,7 +1,7 @@
 class Player
 {
     constructor(tetris) {
-        this.DROP_SLOW = 1000;
+        this.DROP_SLOW = 1100;
         this.DROP_FAST = 50;
 
         this.events = new Events;
@@ -16,7 +16,18 @@ class Player
         this.matrix = null;
         this.score = 0;
 
+        this.intervalID = window.setInterval(this.increaseSpeed.bind(this), 15000);
+
         this.reset();
+    }
+
+    increaseSpeed() {
+        if (this.dropInterval >= 101) {
+            this.dropInterval -= 200;
+            this.DROP_SLOW -= 200;
+            var music = document.getElementById("music");
+            music.playbackRate += 0.2;
+        }
     }
 
     createPiece(type) {
